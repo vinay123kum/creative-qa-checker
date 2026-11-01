@@ -1,0 +1,8 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Creative QA Checker</title>
+<style>body{font:16px/1.5 "Segoe UI",sans-serif;background:#f6f4fb;color:#241c33;margin:0;padding:32px 16px}main{max-width:620px;margin:auto;background:#fff;border-radius:14px;padding:28px;box-shadow:0 2px 14px #2a124011}h1{margin:0 0 4px;font-size:26px}p{color:#5d5570;margin:0 0 20px}label{display:block;font-weight:600;margin:16px 0 6px}input[type=file],select,textarea{width:100%;box-sizing:border-box;padding:10px;border:1px solid #d6d0e3;border-radius:8px;font:inherit}textarea{min-height:130px}button{margin-top:20px;width:100%;padding:13px;border:0;border-radius:8px;background:#6f45d8;color:#fff;font:600 16px "Segoe UI",sans-serif;cursor:pointer}</style>
+<main><h1>{{ brand }} QA check</h1><p>Upload a video or static before it goes to the client.</p>
+<form method=post action=/check enctype=multipart/form-data>
+<label>Video or image</label><input type=file name=file required accept="video/*,image/*">
+<label>Location</label><select name=location><option value="">Not location-specific</option>{% for l in locations %}<option>{{ l }}</option>{% endfor %}</select>
+<label>Brief or script</label><textarea name=brief placeholder="Paste the event name, date, time, price and script. Without this, event details can't be verified."></textarea>
+<button>Run QA</button></form></main>

@@ -1,0 +1,25 @@
+{
+  "brand_spelling": "Maple Street Coffee",
+  "brand_description": "a fictional neighborhood coffee chain used for this demo",
+  "banned_phrases": [
+    "best in town",
+    "world-class",
+    "game-changer"
+  ],
+  "locations": {
+    "Downtown": {
+      "state": "OR",
+      "address": "100 Example Ave, Portland, OR 97201",
+      "website": "downtown.maplestreet.example",
+      "phone": "503-555-0100",
+      "source": "Demo data"
+    },
+    "Riverside": {
+      "state": "OR",
+      "address": "200 Sample Rd, Portland, OR 97202",
+      "website": "riverside.maplestreet.example",
+      "phone": "503-555-0101",
+      "source": "Demo data"
+    }
+  }
+}

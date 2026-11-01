@@ -1,0 +1,15 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>QA: {{ j.name }}</title>
+{% if j.status not in ('done','failed') %}<meta http-equiv=refresh content=4>{% endif %}
+<style>body{font:15px/1.5 "Segoe UI",sans-serif;background:#f6f4fb;color:#241c33;margin:0;padding:28px 16px}main{max-width:1000px;margin:auto}section{background:#fff;border-radius:12px;padding:20px;margin:0 0 16px;box-shadow:0 2px 14px #2a124011}h1{font-size:24px;margin:0 0 12px;overflow-wrap:anywhere}h2{font-size:18px;margin:0 0 10px}.scroll{overflow-x:auto}table{border-collapse:collapse;width:100%}td,th{border-bottom:1px solid #eee8f5;padding:9px;text-align:left;vertical-align:top}.Pass{color:#1f7a4d}.note{color:#8a6d00}.Fail{color:#b3261e}.Unverified{color:#8a4b00}.r{font-weight:700;white-space:nowrap}.big{font-size:34px;font-weight:700}a{color:#6f45d8}img{max-width:150px;border-radius:6px}</style>
+<main><h1>{{ j.name }}</h1>
+{% if j.status == 'failed' %}<section><h2 class=Fail>The check failed</h2><p>{{ j.error }}</p><a href=/>Try again</a></section>
+{% elif j.status != 'done' %}<section><h2>{{ j.status }}…</h2><p>This page updates by itself. A video usually takes a few minutes.</p></section>
+{% else %}{% set r = j.report %}
+<section><h2>Verdict: {{ r.verdict }}</h2><p>{{ r.summary }}</p></section>
+<section><h2>Checklist</h2><div class=scroll><table><tr><th>Check<th>Result<th>Where<th>Finding<th>Fix<th>Proof</tr>
+{% for c in r.checks %}<tr><td><b>{{ c.name }}</b><td class="r {{ 'note' if c.result == 'Pass with note' else c.result }}">{{ c.result }}<td>{{ c.where }}<td>{{ c.finding }}<td>{{ c.fix }}<td>{% if c.proof %}<img src="/files/{{ job }}/{{ c.proof }}" alt="Frame at {{ c.where }}">{% endif %}</tr>{% endfor %}</table></div></section>
+{% if j.dates %}<section><h2>Calendar check</h2><ul>{% for d in j.dates %}<li>{{ d.text }}: {{ 'weekday correct' if d.weekday_ok else 'WRONG, it is a ' ~ d.actual }}{{ ', date has passed' if d.is_past }}</li>{% endfor %}</ul></section>{% endif %}
+<section><h2>Instagram score</h2><div class=big>{{ j.total }}/100 · {{ j.band }}</div><p>A judgment score, not a view forecast.</p><div class=scroll><table>{% for s in r.scores %}<tr><td>{{ s.area }}<td><b>{{ s.score }}/{{ j.areas[s.area] }}</b><td>{{ s.why }}</tr>{% endfor %}</table></div>
+<h2 style=margin-top:16px>Top fixes</h2><ol>{% for f in r.top_fixes %}<li>{{ f }}</li>{% endfor %}</ol></section>
+{% if r.client_confirm %}<section><h2>Needs client confirmation</h2><ul>{% for c in r.client_confirm %}<li>{{ c }}</li>{% endfor %}</ul></section>{% endif %}
+<a href=/>Check another file</a>{% endif %}</main>
